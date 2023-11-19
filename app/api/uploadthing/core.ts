@@ -4,11 +4,9 @@ import { Course } from '@prisma/client'
 const f = createUploadthing()
 const handleAuth = () => {
   const { userId } = auth()
-  console.log('🚀 ~ file: core.ts:7 ~ handleAuth ~ userId:', userId)
   if (!userId) {
     throw new Error('Unauthorized')
   } else {
-    console.log('🚀 ~ file: core.ts:7 ~ handleAuth ~ userId:', userId)
     return { userId }
   }
 }
