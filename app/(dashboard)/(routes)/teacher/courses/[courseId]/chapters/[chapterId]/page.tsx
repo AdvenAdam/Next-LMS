@@ -1,13 +1,18 @@
-import { IconBadge } from '@/components/icon-badge'
 import { db } from '@/lib/db'
+
 import { auth } from '@clerk/nextjs'
-import { ArrowLeft, Eye, LayoutDashboard, Video } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+
+import { ArrowLeft, Eye, LayoutDashboard, Video } from 'lucide-react'
+import { IconBadge } from '@/components/icon-badge'
+import Banner from '@/components/banner'
+
 import { ChapterTitleForm } from './_components/chapter-title-form'
 import { ChapterDescriptionForm } from './_components/chapter-description-form'
 import { ChapterAccessForm } from './_components/chapter-access-form'
 import { ChapterVideoForm } from './_components/chapter-video-form'
+import ChapterActions from './_components/chapter-actions'
 
 const ChapterIdPage = async ({
   params,
@@ -42,6 +47,8 @@ const ChapterIdPage = async ({
 
   const completionText = `(${completedFields}/${totalFields})`
 
+  const isCompleted = requiredFields.every(Boolean)
+
   const HeaderChapter = () => (
     <div className="flex items-center justify-between">
       <div className="w-full">
@@ -60,6 +67,12 @@ const ChapterIdPage = async ({
               Complete all fields {completionText}
             </span>
           </div>
+          <ChapterActions
+            disabled={!isCompleted}
+            courseId={params.courseId}
+            chapterId={params.chapterId}
+            isPublished={chapter.isPublished}
+          />
         </div>
       </div>
     </div>
@@ -109,16 +122,24 @@ const ChapterIdPage = async ({
     </div>
   )
   return (
-    <div className="p-6">
-      <HeaderChapter />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-        <div className="space-y-4">
-          <ChapterForm />
-          <ChapterAccess />
-          <ChapterVideo />
+    <>
+      {!chapter.isPublished && (
+        <Banner
+          variant={'warning'}
+          label="This Chapter is unpublished. it will not be visible to the course"
+        />
+      )}
+      <div className="p-6">
+        <HeaderChapter />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+          <div className="space-y-4">
+            <ChapterForm />
+            <ChapterAccess />
+            <ChapterVideo />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 export default ChapterIdPage

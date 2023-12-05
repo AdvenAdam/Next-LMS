@@ -41,7 +41,7 @@ export const ChapterVideoForm = ({
       toggleEdit()
       router.refresh()
     } catch (error) {
-      console.log('🚀 image-form :59 ~ error:', error)
+      console.log('🚀 video-form :59 ~ error:', error)
       toast.error('Something went wrong')
     }
   }
