@@ -2,6 +2,8 @@ import { auth } from '@clerk/nextjs'
 import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 import { IconBadge } from '@/components/icon-badge'
+import Banner from '@/components/banner'
+import Actions from './_components/actions'
 import {
   CircleDollarSign,
   File,
@@ -54,7 +56,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.title,
     course.description,
     course.imageUrl,
-    course.price,
+    course.price?.toString(),
     course.categoryId,
     course.chapters.some(chapter => chapter.isPublished),
   ]
@@ -64,15 +66,29 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
   const completionText = `(${completedFields}/${totalFields})`
 
+  const isCompleted = requiredFields.every(Boolean)
+
   // The Component separated
+  const CourseBanner = () => {
+    if (!course.isPublished) {
+      return (
+        <Banner label="This course is unpublished. it will not be visible to students." />
+      )
+    }
+  }
   const CourseSetupTitle = () => (
     <div className="flex items-center justify-between">
       <div className="flex flex-col gap-y-2">
         <h1 className="text-2xl font-medium">Course Setup</h1>
         <span className="text-sm text-slate-700">
-          complet all fields {completionText}
+          complete all fields {completionText}
         </span>
       </div>
+      <Actions
+        disabled={!isCompleted}
+        courseId={course.id}
+        isPublished={course.isPublished}
+      />
     </div>
   )
   const CourseForm = () => (
@@ -140,17 +156,20 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     </div>
   )
   return (
-    <div className="p-6">
-      <CourseSetupTitle />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-        <CourseForm />
-        <div className="space-y-6">
-          <CourseChapters />
-          <CoursePrice />
-          <CourseAttachment />
+    <>
+      <CourseBanner />
+      <div className="p-6">
+        <CourseSetupTitle />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+          <CourseForm />
+          <div className="space-y-6">
+            <CourseChapters />
+            <CoursePrice />
+            <CourseAttachment />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 export default CourseIdPage

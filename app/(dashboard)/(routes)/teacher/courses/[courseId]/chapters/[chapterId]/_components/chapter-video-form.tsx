@@ -48,7 +48,7 @@ export const ChapterVideoForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medum flex items-center justify-between">
-        Course Image
+        Chapter Video
         <Button
           variant={'ghost'}
           onClick={toggleEdit}
