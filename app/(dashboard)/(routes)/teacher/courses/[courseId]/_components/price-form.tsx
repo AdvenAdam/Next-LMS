@@ -78,10 +78,12 @@ export const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
         <p
           className={cn(
             'text-sm mt-2',
-            !initialData.price && 'text-slate-500 italic'
+            !initialData.price?.toString().length && 'text-slate-500 italic'
           )}
         >
-          {initialData.price ? formatPrice(initialData.price) : 'No price set'}
+          {initialData.price?.toString().length
+            ? formatPrice(initialData.price)
+            : 'No price set'}
         </p>
       ) : (
         <Form {...form}>
