@@ -10,6 +10,7 @@ export async function PATCH(
     params: { courseId: string; chapterId: string }
   }
 ) {
+  console.log('🚀 ~ file: route.ts:13 ~ params:', params)
   try {
     const { userId } = auth()
     if (!userId) {
@@ -39,13 +40,7 @@ export async function PATCH(
       },
     })
 
-    if (
-      !chapter ||
-      !muxData ||
-      !chapter.title ||
-      !chapter.videoUrl ||
-      !chapter.description
-    ) {
+    if (!chapter || !chapter.title || !chapter.description) {
       return new NextResponse('Not Missing Required fields', { status: 400 })
     }
 

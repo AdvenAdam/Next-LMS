@@ -8,8 +8,9 @@ import { Preview } from '@/components/preview'
 
 import { CourseEnrollButton } from './_components/course-enroll-button'
 import { VideoPlayer } from './_components/video-player'
-import { File } from 'lucide-react'
+import { File, VideoOff } from 'lucide-react'
 import { CourseProgressButton } from './_components/course-progress-button'
+import { IconBadge } from '@/components/icon-badge'
 
 const ChapterIdPage = async ({
   params,
@@ -64,15 +65,22 @@ const ChapterIdPage = async ({
   const ChapterVideo = () => {
     return (
       <div className="p-4">
-        <VideoPlayer
-          chapterId={chapter.id}
-          title={chapter.title}
-          courseId={params.courseId}
-          nextChapterId={nextChapter?.id}
-          playbackId={muxData?.playbackId!}
-          isLocked={isLocked}
-          completeOnEnd={completeOnEnd}
-        />
+        {muxData ? (
+          <VideoPlayer
+            chapterId={chapter.id}
+            title={chapter.title}
+            courseId={params.courseId}
+            nextChapterId={nextChapter?.id}
+            playbackId={muxData?.playbackId!}
+            isLocked={isLocked}
+            completeOnEnd={completeOnEnd}
+          />
+        ) : (
+          <div className="flex justify-center items-center p-3 space-x-5 w-full bg-orange-200 border text-orange-700 rounded-md">
+            <VideoOff />
+            <p className="text lg">No video found</p>
+          </div>
+        )}
       </div>
     )
   }

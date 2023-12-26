@@ -49,7 +49,7 @@ export async function POST(
       data: {
         title,
         courseId: params.courseId,
-        position: String(newPosition),
+        position: newPosition,
       },
     })
 
