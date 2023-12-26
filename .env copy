@@ -1,3 +1,5 @@
+
+
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_ZGl2ZXJzZS10b2FkLTc1LmNsZXJrLmFjY291bnRzLmRldiQ
 CLERK_SECRET_KEY=sk_test_6c32ns7IjTK8F7BH4Wy64x8upzIpMNrW6YMAVlkrKQ
 
@@ -8,13 +10,10 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
 NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 
 # This was inserted by `prisma init`:
-
 # Environment variables declared in this file are automatically made available to Prisma.
-
 # See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
 
 # Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
-
 # See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 
 DATABASE_URL="mysql://root:@localhost:3306/next-lms"
@@ -25,5 +24,11 @@ UPLOADTHING_APP_ID=4cbqg999r5
 MUX_TOKEN_ID=ad9105aa-0418-405b-bef3-3c7288280233
 MUX_TOKEN_SECRET=4zWoYFwNIqJO6yCt/jTasjUgAMgbBPn2TLXIWtB+WxQYCAI+jAaee5DQYLvcGUcgLUs55VVmxkI
 
+
 STRIPE_API_KEY=sk_test_51OPJRLHlOBCl7VmnWINCWOnqMlCmS0LJ7oHHnvM1Fkl2Wi2xhHMul6FM26rxTWgYVZKPp8ySLHmYePg5GHzVSsPP00Eg0edRrY
 STRIPE_WEBHOOK_SECRET=whsec_aa077d396b83215b8a800ef7ad01edf5ab9e2c0720521b75239402ece538a9a0
+
+# enable payment localy
+# stripe login  
+# stripe listen --forward-to localhost:3000/webhook
+
